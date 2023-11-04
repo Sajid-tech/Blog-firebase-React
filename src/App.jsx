@@ -9,6 +9,7 @@ import { Toaster } from "react-hot-toast";
 import BlogInfo from "./pages/blogInfo/BlogInfo";
 import AdminLogin from "./pages/admin/adminLogin/AdminLogin";
 import Dashboard from "./pages/admin/dashboard/Dashboard";
+import CreateBlog from "./pages/admin/createBlog/CreateBlog";
 
 const App = () => {
   return (
@@ -21,6 +22,7 @@ const App = () => {
           <Route path="/bloginfo/:id" element={<BlogInfo />} />
           <Route path="/adminlogin" element={<AdminLogin />} />
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/createblog" element={<CreateBlog />} />
           <Route path="/*" element={<NoPage />} />
         </Routes>
         <Toaster />
