@@ -8,9 +8,10 @@ import {
 } from "@material-tailwind/react";
 import { useContext } from "react";
 import { Link } from "react-router-dom";
-import { AiOutlineShareAlt, AiOutlineSearch } from "react-icons/ai";
 import myContext from "../../context/data/myContext";
 import { useState } from "react";
+import SearchDialog from "../searchDialog/SearchDialog";
+import ShareDialogBox from "../shareDialogBox/ShareDialogBox";
 
 export default function Nav() {
   const [openNav, setOpenNav] = useState(false);
@@ -91,13 +92,13 @@ export default function Nav() {
             <div className="hidden lg:block">{navList}</div>
 
             {/* Search Icon */}
-            <div>
-              <AiOutlineSearch size={20} color="white" />
+            <div className="cursor-pointer">
+              <SearchDialog />
             </div>
 
             {/* Share Icon */}
-            <div className="hidden lg:block">
-              <AiOutlineShareAlt size={20} color="white" />
+            <div className="hidden lg:block cursor-pointer">
+              <ShareDialogBox />
             </div>
 
             {/* Admin Profile Pic */}
