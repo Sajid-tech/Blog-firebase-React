@@ -2,12 +2,19 @@ import React, { useContext } from "react";
 import Layout from "../../../components/layout/Layout";
 import myContext from "../../../context/data/myContext";
 import { Button } from "@material-tailwind/react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FiTrash2 } from "react-icons/fi";
 
 function Dashboard() {
   const context = useContext(myContext);
   const { mode } = context;
+
+  const navigate = useNavigate();
+
+  const logout = () => {
+    localStorage.clear("admin");
+    navigate("/");
+  };
   const isDarkMode = mode === "dark";
 
   const containerStyle = {
@@ -68,6 +75,7 @@ function Dashboard() {
                 </Button>
               </Link>
               <Button
+                onClick={logout}
                 style={buttonStyle}
                 className="px-12 py-3 hover:bg-red-600 hover:text-white transition duration-300 transform hover:scale-105"
               >
