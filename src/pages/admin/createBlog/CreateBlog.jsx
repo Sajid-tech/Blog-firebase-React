@@ -15,7 +15,7 @@ function CreateBlog() {
   console.log("Value: ");
   console.log("text: ", text);
 
-  // Create markup function
+  // Create markup function -- to convert html to text becuz text editor provide html
   function createMarkup(c) {
     return { __html: c };
   }
@@ -143,6 +143,8 @@ function CreateBlog() {
         >
           Send
         </Button>
+        {/* // hit and trial this function  */}
+        <div dangerouslySetInnerHTML={createMarkup(blogs.content)} />
       </div>
     </div>
   );
