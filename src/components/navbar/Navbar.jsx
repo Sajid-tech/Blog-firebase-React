@@ -27,7 +27,7 @@ export default function Nav() {
         variant="small"
         color="blue-gray"
         className="p-1 font-normal"
-        style={{ color: mode === "dark" ? "white" : "white" }}
+        style={{ color: mode === "dark" ? "white" : "black" }}
       >
         <Link to={"/"} className="flex items-center">
           Home
@@ -39,7 +39,7 @@ export default function Nav() {
         variant="small"
         color="blue-gray"
         className="p-1 font-normal"
-        style={{ color: mode === "dark" ? "white" : "white" }}
+        style={{ color: mode === "dark" ? "white" : "black" }}
       >
         <Link to={"/allblogs"} className="flex items-center">
           Blogs
@@ -51,7 +51,7 @@ export default function Nav() {
         variant="small"
         color="blue-gray"
         className="p-1 font-normal"
-        style={{ color: mode === "dark" ? "white" : "white" }}
+        style={{ color: mode === "dark" ? "white" : "black" }}
       >
         <Link to={"/adminlogin"} className="flex items-center">
           Admin Login
@@ -65,7 +65,7 @@ export default function Nav() {
       {/* Navbar  */}
       <Navbar
         className="sticky inset-0 z-20 h-max max-w-full border-none rounded-none py-2 px-4 lg:px-8 lg:py-2"
-        style={{ background: mode === "dark" ? "rgb(30, 41, 59)" : "#30336b" }}
+        style={{ background: mode === "dark" ? "rgb(30, 41, 59)" : "#bbdefb" }}
       >
         {/* Desktop View  */}
         <div className="flex items-center justify-between text-blue-gray-900">
@@ -79,7 +79,7 @@ export default function Nav() {
               {/* Logo Image  */}
               <img
                 width={140}
-                src="https://traveljunkies.com/wp-content/uploads/2023/01/tj-logo-alt2023.png"
+                src={mode === "dark" ? "/travel.png" : "/travelwhite.png"}
               />
               {/* Logo Text  */}
               {/* <span>Travel junkies</span> */}
@@ -112,7 +112,7 @@ export default function Nav() {
                     }
                     alt="avatar"
                     withBorder={true}
-                    className="p-0.5 text-red-500 w-10 h-10 "
+                    className="p-0.5 text-red-500 w-9 h-9 "
                     style={{
                       border:
                         mode === "dark"
@@ -135,6 +135,10 @@ export default function Nav() {
                     style={{
                       background: mode === "light" ? "#ced6e0" : "#57606f",
                       color: mode === "dark" ? "white" : "black",
+                      border:
+                        mode === "dark"
+                          ? "2px solid rgb(226, 232, 240)"
+                          : "2px solid rgb(30, 41, 59)",
                     }}
                   >
                     <svg
@@ -161,6 +165,10 @@ export default function Nav() {
                     className=" lg:inline-block rounded-full w-9 h-9"
                     style={{
                       background: mode === "light" ? "#ced6e0" : "#57606f",
+                      border:
+                        mode === "dark"
+                          ? "2px solid rgb(226, 232, 240)"
+                          : "2px solid rgb(30, 41, 59)",
                     }}
                   >
                     <svg

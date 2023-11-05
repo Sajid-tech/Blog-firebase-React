@@ -10,11 +10,17 @@ export default function SearchDialog() {
 
   const context = useContext(myContext);
   const { mode } = context;
+
   return (
     <>
       {/* search icon   */}
       <div onClick={handleOpen}>
-        <AiOutlineSearch size={20} color="white" />
+        <AiOutlineSearch
+          size={20}
+          style={{
+            color: mode === "dark" ? "white" : "black",
+          }}
+        />
       </div>
       {/* dialog  */}
       <Dialog

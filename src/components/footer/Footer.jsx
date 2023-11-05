@@ -7,28 +7,23 @@ function Footer() {
   return (
     <footer
       className="body-font"
-      style={{ background: mode === "dark" ? "rgb(30, 41, 59)" : "#30336b" }}
+      style={{
+        background: mode === "dark" ? "rgb(30, 41, 59)" : "#bbdefb",
+      }}
     >
       {/* Left Content  */}
       <div className="container px-5 py-3 mx-auto flex items-center sm:flex-row flex-col">
-        {/* Blog Logo  */}
-        {/* <div className="flex title-font font-medium items-center md:justify-start justify-center text-gray-900"> */}
-        {/* logo  */}
-        {/* <img
-            className="w-10"
-            src="https://cdn-icons-png.flaticon.com/128/3685/3685253.png"
-            alt="logo"
-          /> */}
-        {/* logo text  */}
-        {/* <span className="ml-3 text-xl text-white"></span> */}
-        {/* </div> */}
-
         {/* items  */}
-        <p className="text-sm text-gray-500 ">
+        <p
+          className="text-sm text-white-500 "
+          style={{
+            color: mode === "dark" ? "white" : "black",
+          }}
+        >
           © 2023 Traveljunkies —
           <a
             href="https://twitter.com/knyttneve"
-            className="text-gray-600 ml-1"
+            className="text-white-600 ml-1"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -37,9 +32,14 @@ function Footer() {
         </p>
 
         {/* Right item  */}
-        <span className="inline-flex sm:ml-auto sm:mt-0 mt-4 justify-center sm:justify-start">
+        <span
+          className="inline-flex sm:ml-auto sm:mt-0 mt-4 justify-center sm:justify-start"
+          style={{
+            color: mode === "dark" ? "white" : "black",
+          }}
+        >
           {/* Icon 1  */}
-          <a className="text-gray-500">
+          <a className="text-white-500">
             <svg
               fill="currentColor"
               strokeLinecap="round"
@@ -53,7 +53,7 @@ function Footer() {
           </a>
 
           {/* Icon 2  */}
-          <a className="ml-3 text-gray-500">
+          <a className="ml-3 text-white-500">
             <svg
               fill="currentColor"
               strokeLinecap="round"
@@ -67,7 +67,7 @@ function Footer() {
           </a>
 
           {/* Icon 3  */}
-          <a className="ml-3 text-gray-500">
+          <a className="ml-3 text-white-500">
             <svg
               fill="none"
               stroke="currentColor"
@@ -83,7 +83,7 @@ function Footer() {
           </a>
 
           {/* Icon 4  */}
-          <a className="ml-3 text-gray-500">
+          <a className="ml-3 text-white-500">
             <svg
               fill="currentColor"
               stroke="currentColor"
