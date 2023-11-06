@@ -7,7 +7,7 @@ import { FiTrash2 } from "react-icons/fi";
 
 function Dashboard() {
   const context = useContext(myContext);
-  const { mode } = context;
+  const { mode, getAllBlog } = context;
 
   const navigate = useNavigate();
 
@@ -118,38 +118,58 @@ function Dashboard() {
                   </th>
                 </tr>
               </thead>
-              <tbody>
-                <tr className="border-b-2" style={containerStyle}>
-                  <td style={containerStyle} className="px-6 py-4">
-                    {"1."}
-                  </td>
-                  <th
-                    style={containerStyle}
-                    scope="row"
-                    className="px-6 py-4 font-semibold"
-                  >
-                    <img
-                      className="w-16 h-16 object-cover rounded-lg shadow-lg"
-                      src="https://traveljunkies.com/wp-content/uploads/2023/01/adventure1.jpg"
-                      alt="thumbnail"
-                    />
-                  </th>
-                  <td style={containerStyle} className="px-6 py-4">
-                    {"React Introduction"}
-                  </td>
-                  <td style={containerStyle} className="px-6 py-4">
-                    {"reactjs"}
-                  </td>
-                  <td style={containerStyle} className="px-6 py-4">
-                    {"Jul 25, 2023"}
-                  </td>
-                  <td style={containerStyle} className="px-6 py-4">
-                    <button className="px-4 py-2 rounded-lg text-white font-bold bg-red-500 hover:bg-red-600 flex items-center justify-center transition duration-300 transform hover:scale-105">
-                      <FiTrash2 className="mr-2" /> Delete
-                    </button>
-                  </td>
-                </tr>
-              </tbody>
+              {/* tbody  */}
+              {getAllBlog.map((item, index) => {
+                const { thumbnail, date, title, category } = item;
+                console.log(item);
+                return (
+                  <tbody key={item.id}>
+                    <tr className="border-b-2" style={containerStyle}>
+                      {/* s. no  */}
+                      <td style={containerStyle} className="px-6 py-4">
+                        {index + 1}
+                      </td>
+                      {/* blog thumbnail  */}
+
+                      <th
+                        style={containerStyle}
+                        scope="row"
+                        className="px-6 py-4 font-semibold"
+                      >
+                        {/* thumbnail  */}
+                        <img
+                          className="w-16 h-16 object-cover rounded-lg shadow-lg"
+                          src={thumbnail}
+                          alt="thumbnail"
+                        />
+                      </th>
+                      {/* blog ka title  */}
+                      <td
+                        key={item.id}
+                        style={containerStyle}
+                        className="px-6 py-4"
+                      >
+                        {title}
+                      </td>
+                      {/* blog category  */}
+                      <td style={containerStyle} className="px-6 py-4">
+                        {category}
+                      </td>
+                      {/* date  */}
+                      <td style={containerStyle} className="px-6 py-4">
+                        {date}
+                      </td>
+
+                      {/* delete blog  */}
+                      <td style={containerStyle} className="px-6 py-4">
+                        <button className="px-4 py-2 rounded-lg text-white font-bold bg-red-500 hover:bg-red-600 flex items-center justify-center transition duration-300 transform hover:scale-105">
+                          <FiTrash2 className="mr-2" /> Delete
+                        </button>
+                      </td>
+                    </tr>
+                  </tbody>
+                );
+              })}
             </table>
           </div>
         </div>
