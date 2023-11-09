@@ -69,7 +69,9 @@ const BlogInfo = () => {
               />
 
               {/* blog Content  */}
-              <div className="content">{getBlog?.content}</div>
+              <div style={{ color: mode === "dark" ? "white" : "black" }}>
+                {getBlog?.content}
+              </div>
             </div>
           )}
         </div>

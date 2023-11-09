@@ -7,7 +7,7 @@ import { FiTrash2 } from "react-icons/fi";
 
 function Dashboard() {
   const context = useContext(myContext);
-  const { mode, getAllBlog } = context;
+  const { mode, getAllBlog, deleteBlogs } = context;
 
   const navigate = useNavigate();
 
@@ -161,8 +161,15 @@ function Dashboard() {
                       </td>
 
                       {/* delete blog  */}
-                      <td style={containerStyle} className="px-6 py-4">
-                        <button className="px-4 py-2 rounded-lg text-white font-bold bg-red-500 hover:bg-red-600 flex items-center justify-center transition duration-300 transform hover:scale-105">
+                      <td
+                        onClick={() => deleteBlogs(id)}
+                        style={containerStyle}
+                        className="px-6 py-4"
+                      >
+                        <button
+                          onClick={() => deleteBlogs(item?.id)}
+                          className="px-4 py-2 rounded-lg text-white font-bold bg-red-500 hover:bg-red-600 flex items-center justify-center transition duration-300 transform hover:scale-105"
+                        >
                           <FiTrash2 className="mr-2" /> Delete
                         </button>
                       </td>

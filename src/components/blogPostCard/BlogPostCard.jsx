@@ -14,13 +14,14 @@ function BlogPostCard() {
       <section className="text-gray-600 body-font">
         <div className="container px-5 py-10 mx-auto max-w-7xl ">
           {/* Main Content  */}
-          <div className="flex flex-wrap justify-center -m-4 mb-5">
+          <div className="flex flex-wrap justify-center m-4 mb-5">
             {/* Card 1  */}
             {getAllBlog.length > 0 ? (
               <>
-                {getAllBlog.map((item, index) => {
+                {getAllBlog.slice(0, 2).map((item, index) => {
                   const { thumbnail, id, date, content } = item;
-                  console.log(item);
+                  // console.log(item);
+
                   return (
                     <div
                       onClick={() => navigate(`/bloginfo/${id}`)}
@@ -85,7 +86,7 @@ function BlogPostCard() {
                                   : " rgb(30, 41, 59)",
                             }}
                           >
-                            {`${content.slice(0, 150)}+...`}
+                            {`${content.slice(0, 150)}...`}
                           </p>
                         </div>
                       </div>
@@ -103,6 +104,7 @@ function BlogPostCard() {
           {/* See More Button  */}
           <div className="flex justify-center my-5">
             <Button
+              onClick={() => navigate("/allblogs")}
               style={{
                 background:
                   mode === "dark" ? "rgb(226, 232, 240)" : "rgb(30, 41, 59)",
