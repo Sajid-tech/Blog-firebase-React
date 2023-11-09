@@ -23,11 +23,7 @@ function BlogPostCard() {
                   // console.log(item);
 
                   return (
-                    <div
-                      onClick={() => navigate(`/bloginfo/${id}`)}
-                      className="p-4 md:w-1/3"
-                      key={index}
-                    >
+                    <div className="p-4 md:w-1/3" key={index}>
                       <div
                         style={{
                           background:
@@ -89,6 +85,11 @@ function BlogPostCard() {
                             {`${content.slice(0, 150)}...`}
                           </p>
                         </div>
+                      </div>
+                      <div className="pt-0">
+                        <Button onClick={() => navigate(`/bloginfo/${id}`)}>
+                          Read More
+                        </Button>
                       </div>
                     </div>
                   );
