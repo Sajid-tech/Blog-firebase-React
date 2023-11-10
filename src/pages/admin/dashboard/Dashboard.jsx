@@ -1,9 +1,10 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Layout from "../../../components/layout/Layout";
 import myContext from "../../../context/data/myContext";
 import { Button } from "@material-tailwind/react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { FiTrash2 } from "react-icons/fi";
+import { fireDb } from "../../../firebase/FirebaseConfig";
 
 function Dashboard() {
   const context = useContext(myContext);
@@ -11,9 +12,26 @@ function Dashboard() {
 
   const navigate = useNavigate();
 
+  const { userId } = useParams();
+  const [userData, setUserData] = useState(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const userDoc = await fireDb.collection("blogPost").doc(userId).get();
+        const userData = userDoc.data();
+        setUserData(userData ? userData : []);
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+      }
+    };
+
+    fetchData();
+  }, [userId]);
+
   const logout = () => {
-    localStorage.clear("admin");
-    navigate("/");
+    // localStorage.clear("admin");
+    navigate("/adminlogin");
   };
   const isDarkMode = mode === "dark";
 
@@ -119,64 +137,65 @@ function Dashboard() {
                 </tr>
               </thead>
               {/* tbody  */}
-              {getAllBlog.map((item, index) => {
-                const { thumbnail, date, title, category } = item;
-                console.log(item);
-                return (
-                  <tbody key={item.id}>
-                    <tr className="border-b-2" style={containerStyle}>
-                      {/* s. no  */}
-                      <td style={containerStyle} className="px-6 py-4">
-                        {index + 1}
-                      </td>
-                      {/* blog thumbnail  */}
+              {userData &&
+                userData.map((item, index) => {
+                  // const { thumbnail, date, title, category } = item;
+                  console.log(item);
+                  return (
+                    <tbody key={item.id}>
+                      <tr className="border-b-2" style={containerStyle}>
+                        {/* s. no  */}
+                        <td style={containerStyle} className="px-6 py-4">
+                          {index + 1}
+                        </td>
+                        {/* blog thumbnail  */}
 
-                      <th
-                        style={containerStyle}
-                        scope="row"
-                        className="px-6 py-4 font-semibold"
-                      >
-                        {/* thumbnail  */}
-                        <img
-                          className="w-16 h-16 object-cover rounded-lg shadow-lg"
-                          src={thumbnail}
-                          alt="thumbnail"
-                        />
-                      </th>
-                      {/* blog ka title  */}
-                      <td
-                        key={item.id}
-                        style={containerStyle}
-                        className="px-6 py-4"
-                      >
-                        {title}
-                      </td>
-                      {/* blog category  */}
-                      <td style={containerStyle} className="px-6 py-4">
-                        {category}
-                      </td>
-                      {/* date  */}
-                      <td style={containerStyle} className="px-6 py-4">
-                        {date}
-                      </td>
-
-                      {/* delete blog  */}
-                      <td
-                        onClick={() => deleteBlogs(id)}
-                        style={containerStyle}
-                        className="px-6 py-4"
-                      >
-                        <button
-                          onClick={() => deleteBlogs(item?.id)}
-                          className="px-4 py-2 rounded-lg text-white font-bold bg-red-500 hover:bg-red-600 flex items-center justify-center transition duration-300 transform hover:scale-105"
+                        <th
+                          style={containerStyle}
+                          scope="row"
+                          className="px-6 py-4 font-semibold"
                         >
-                          <FiTrash2 className="mr-2" /> Delete
-                        </button>
-                      </td>
-                    </tr>
-                  </tbody>
-                );
-              })}
+                          {/* thumbnail  */}
+                          <img
+                            className="w-16 h-16 object-cover rounded-lg shadow-lg"
+                            src={item.thumbnail}
+                            alt="thumbnail"
+                          />
+                        </th>
+                        {/* blog ka title  */}
+                        <td
+                          // key={item.id}
+                          style={containerStyle}
+                          className="px-6 py-4"
+                        >
+                          {item.title}
+                        </td>
+                        {/* blog category  */}
+                        <td style={containerStyle} className="px-6 py-4">
+                          {item.category}
+                        </td>
+                        {/* date  */}
+                        <td style={containerStyle} className="px-6 py-4">
+                          {item.date}
+                        </td>
+
+                        {/* delete blog  */}
+                        <td
+                          onClick={() => deleteBlogs(item?.id)}
+                          style={containerStyle}
+                          className="px-6 py-4"
+                        >
+                          <button
+                            onClick={() => deleteBlogs(item?.id)}
+                            className="px-4 py-2 rounded-lg text-white font-bold bg-red-500 hover:bg-red-600 flex items-center justify-center transition duration-300 transform hover:scale-105"
+                          >
+                            <FiTrash2 className="mr-2" /> Delete
+                          </button>
+                        </td>
+                      </tr>
+                    </tbody>
+                  );
+                })}
             </table>
           </div>
         </div>
