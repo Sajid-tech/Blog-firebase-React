@@ -3,6 +3,7 @@ import {
   BrowserRouter as Router,
   Route,
   Routes,
+  useParams,
   Navigate,
 } from "react-router-dom";
 import Home from "./pages/home/Home";
@@ -15,8 +16,11 @@ import BlogInfo from "./pages/blogInfo/BlogInfo";
 import AdminLogin from "./pages/admin/adminLogin/AdminLogin";
 import Dashboard from "./pages/admin/dashboard/Dashboard";
 import CreateBlog from "./pages/admin/createBlog/CreateBlog";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from "./firebase/FirebaseConfig";
 
 const App = () => {
+  const [user] = useAuthState(auth);
   return (
     <MyState>
       <Router>
@@ -25,9 +29,17 @@ const App = () => {
           <Route path="/blog" element={<Blog />} />
           <Route path="/allblogs" element={<AllBlogs />} />
           <Route path="/bloginfo/:id" element={<BlogInfo />} />
-          <Route path="/adminlogin" element={<AdminLogin />} />
-          <Route path="/dashboard/:id" element={<Dashboard />} />
-          <Route path="/createblog" element={<CreateBlog />} />
+          <Route
+            path="/adminlogin"
+            element={
+              user ? <Navigate to={`/dashboard/${user.uid}`} /> : <AdminLogin />
+            }
+          />
+          <Route
+            path={`/dashboard/:userId`}
+            element={user ? <Dashboard /> : <Navigate to="/adminlogin" />}
+          />
+          <Route path={`/createblog/:userId`} element={<CreateBlog />} />
           <Route path="/*" element={<NoPage />} />
         </Routes>
         <Toaster />

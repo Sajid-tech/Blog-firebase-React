@@ -4,11 +4,13 @@ import myContext from "../../../context/data/myContext";
 import { Button } from "@material-tailwind/react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { FiTrash2 } from "react-icons/fi";
-import { fireDb } from "../../../firebase/FirebaseConfig";
+import { auth, fireDb } from "../../../firebase/FirebaseConfig";
+import { signOut } from "firebase/auth";
+import { getDocs, collection, where } from "firebase/firestore";
 
 function Dashboard() {
   const context = useContext(myContext);
-  const { mode, getAllBlog, deleteBlogs } = context;
+  const { mode, deleteBlogs } = context;
 
   const navigate = useNavigate();
 
@@ -18,9 +20,17 @@ function Dashboard() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const userDoc = await fireDb.collection("blogPost").doc(userId).get();
-        const userData = userDoc.data();
-        setUserData(userData ? userData : []);
+        const user = auth.currentUser; // get the current user
+        // console.log(user);
+
+        if (user) {
+          const userDoc = await getDocs(
+            collection(fireDb, "blogPost"),
+            where("userId", "==", user.uid) // use the user's id directly
+          );
+          const userData = userDoc.docs.map((doc) => doc.data());
+          setUserData(userData);
+        }
       } catch (error) {
         console.error("Error fetching user data:", error);
       }
@@ -29,10 +39,17 @@ function Dashboard() {
     fetchData();
   }, [userId]);
 
-  const logout = () => {
+  const logout = async () => {
     // localStorage.clear("admin");
-    navigate("/adminlogin");
+    try {
+      await signOut(auth);
+      navigate("/adminlogin");
+    } catch (error) {
+      console.log("Error logging out:", error);
+    }
+    // navigate("/");
   };
+
   const isDarkMode = mode === "dark";
 
   const containerStyle = {
@@ -84,7 +101,7 @@ function Dashboard() {
               <span className="text-blue-500">Total Blog: 15</span>
             </h2>
             <div className="flex gap-4 mt-4">
-              <Link to="/createblog">
+              <Link to={`/createblog/${userId}`}>
                 <Button
                   style={buttonStyle}
                   className="px-12 py-3 hover:bg-blue-600 hover:text-white transition duration-300 transform hover:scale-105"
@@ -92,6 +109,7 @@ function Dashboard() {
                   Create Blog
                 </Button>
               </Link>
+
               <Button
                 onClick={logout}
                 style={buttonStyle}
@@ -111,34 +129,58 @@ function Dashboard() {
 
         <div className="container mx-auto px-4 max-w-7xl my-5">
           <div className="overflow-x-auto shadow-lg rounded-lg">
-            <table
-              className={`w-full border-2 shadow-lg text-sm text-left ${containerStyle}`}
-            >
-              <thead style={containerStyle} className="text-xs">
-                <tr>
-                  <th style={containerStyle} scope="col" className="px-6 py-4">
-                    S.No
-                  </th>
-                  <th style={containerStyle} scope="col" className="px-6 py-4">
-                    Thumbnail
-                  </th>
-                  <th style={containerStyle} scope="col" className="px-6 py-4">
-                    Title
-                  </th>
-                  <th style={containerStyle} scope="col" className="px-6 py-4">
-                    Category
-                  </th>
-                  <th style={containerStyle} scope="col" className="px-6 py-4">
-                    Date
-                  </th>
-                  <th style={containerStyle} scope="col" className="px-6 py-4">
-                    Action
-                  </th>
-                </tr>
-              </thead>
-              {/* tbody  */}
-              {userData &&
-                userData.map((item, index) => {
+            {userData && (
+              <table
+                className={`w-full border-2 shadow-lg text-sm text-left ${containerStyle}`}
+              >
+                <thead style={containerStyle} className="text-xs">
+                  <tr>
+                    <th
+                      style={containerStyle}
+                      scope="col"
+                      className="px-6 py-4"
+                    >
+                      S.No
+                    </th>
+                    <th
+                      style={containerStyle}
+                      scope="col"
+                      className="px-6 py-4"
+                    >
+                      Thumbnail
+                    </th>
+                    <th
+                      style={containerStyle}
+                      scope="col"
+                      className="px-6 py-4"
+                    >
+                      Title
+                    </th>
+                    <th
+                      style={containerStyle}
+                      scope="col"
+                      className="px-6 py-4"
+                    >
+                      Category
+                    </th>
+                    <th
+                      style={containerStyle}
+                      scope="col"
+                      className="px-6 py-4"
+                    >
+                      Date
+                    </th>
+                    <th
+                      style={containerStyle}
+                      scope="col"
+                      className="px-6 py-4"
+                    >
+                      Action
+                    </th>
+                  </tr>
+                </thead>
+                {/* tbody  */}
+                {userData.map((item, index) => {
                   // const { thumbnail, date, title, category } = item;
                   console.log(item);
                   return (
@@ -196,7 +238,8 @@ function Dashboard() {
                     </tbody>
                   );
                 })}
-            </table>
+              </table>
+            )}
           </div>
         </div>
       </div>

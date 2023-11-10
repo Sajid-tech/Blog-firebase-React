@@ -7,13 +7,18 @@ import { Timestamp, addDoc, collection } from "firebase/firestore";
 import toast from "react-hot-toast";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { fireDb, storage } from "../../../firebase/FirebaseConfig";
+import { useParams } from "react-router-dom";
+// import { useAuthState } from "react-firebase-hooks/auth";
 
 function CreateBlog() {
+  const { userId } = useParams();
   const context = useContext(myContext);
   const { mode } = context;
 
   const navigate = useNavigate();
 
+  // Use the hook to get user and loading state
+  // const [user] = useAuthState(auth);
   const [blogs, setBlogs] = useState({
     title: "",
     category: "",
@@ -47,7 +52,6 @@ function CreateBlog() {
       uploadImage();
     }
   };
-
   const uploadImage = () => {
     const imageRef = ref(storage, `blogimage/${blogs.thumbnail.name}`);
     uploadBytes(imageRef, blogs.thumbnail).then((snapshot) => {
@@ -55,7 +59,8 @@ function CreateBlog() {
         const productRef = collection(fireDb, "blogPost");
         try {
           addDoc(productRef, {
-            ...blogs, // Include all data
+            ...blogs,
+            userId: userId, // Use the userId from useParams
             thumbnail: url,
             time: Timestamp.now(),
             date: new Date().toLocaleString("en-US", {
@@ -64,16 +69,15 @@ function CreateBlog() {
               year: "numeric",
             }),
           });
-          navigate("/dashboard");
+          navigate(`/dashboard/${userId}`);
           toast.success("Post Added Successfully");
         } catch (error) {
-          toast.error(error);
+          toast.error(error.message);
           console.log(error);
         }
       });
     });
   };
-
   return (
     <div className="container mx-auto max-w-5xl py-6">
       <div
