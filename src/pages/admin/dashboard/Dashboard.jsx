@@ -6,7 +6,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { FiTrash2 } from "react-icons/fi";
 import { auth, fireDb } from "../../../firebase/FirebaseConfig";
 import { signOut } from "firebase/auth";
-import { getDocs, collection, where } from "firebase/firestore";
+import { getDocs, collection, where, query } from "firebase/firestore";
 
 function Dashboard() {
   const context = useContext(myContext);
@@ -24,11 +24,15 @@ function Dashboard() {
         // console.log(user);
 
         if (user) {
-          const userDoc = await getDocs(
+          const q = query(
             collection(fireDb, "blogPost"),
-            where("userId", "==", user.uid) // use the user's id directly
+            where("userId", "==", user.uid)
           );
-          const userData = userDoc.docs.map((doc) => doc.data());
+          const userDoc = await getDocs(q);
+          const userData = userDoc.docs.map((doc) => ({
+            id: doc.id,
+            ...doc.data(),
+          }));
           setUserData(userData);
         }
       } catch (error) {
@@ -129,63 +133,41 @@ function Dashboard() {
 
         <div className="container mx-auto px-4 max-w-7xl my-5">
           <div className="overflow-x-auto shadow-lg rounded-lg">
-            {userData && (
-              <table
-                className={`w-full border-2 shadow-lg text-sm text-left ${containerStyle}`}
-              >
-                <thead style={containerStyle} className="text-xs">
-                  <tr>
-                    <th
-                      style={containerStyle}
-                      scope="col"
-                      className="px-6 py-4"
-                    >
-                      S.No
-                    </th>
-                    <th
-                      style={containerStyle}
-                      scope="col"
-                      className="px-6 py-4"
-                    >
-                      Thumbnail
-                    </th>
-                    <th
-                      style={containerStyle}
-                      scope="col"
-                      className="px-6 py-4"
-                    >
-                      Title
-                    </th>
-                    <th
-                      style={containerStyle}
-                      scope="col"
-                      className="px-6 py-4"
-                    >
-                      Category
-                    </th>
-                    <th
-                      style={containerStyle}
-                      scope="col"
-                      className="px-6 py-4"
-                    >
-                      Date
-                    </th>
-                    <th
-                      style={containerStyle}
-                      scope="col"
-                      className="px-6 py-4"
-                    >
-                      Action
-                    </th>
-                  </tr>
-                </thead>
-                {/* tbody  */}
-                {userData.map((item, index) => {
-                  // const { thumbnail, date, title, category } = item;
-                  console.log(item);
-                  return (
-                    <tbody key={item.id}>
-                      <tr className="border-b-2" style={containerStyle}>
+            <table
+              className={`w-full border-2 shadow-lg text-sm text-left ${containerStyle}`}
+            >
+              <thead style={containerStyle} className="text-xs">
+                <tr>
+                  <th style={containerStyle} scope="col" className="px-6 py-4">
+                    S.No
+                  </th>
+                  <th style={containerStyle} scope="col" className="px-6 py-4">
+                    Thumbnail
+                  </th>
+                  <th style={containerStyle} scope="col" className="px-6 py-4">
+                    Title
+                  </th>
+                  <th style={containerStyle} scope="col" className="px-6 py-4">
+                    Category
+                  </th>
+                  <th style={containerStyle} scope="col" className="px-6 py-4">
+                    Date
+                  </th>
+                  <th style={containerStyle} scope="col" className="px-6 py-4">
+                    Action
+                  </th>
+                </tr>
+              </thead>
+              {/* tbody  */}
+              <tbody>
+                {userData &&
+                  userData.map((item, index) => {
+                    return (
+                      <tr
+                        key={item.id}
+                        className="border-b-2"
+                        style={containerStyle}
+                      >
                         {/* s. no  */}
                         <td style={containerStyle} className="px-6 py-4">
                           {index + 1}
@@ -235,11 +217,10 @@ function Dashboard() {
                           </button>
                         </td>
                       </tr>
-                    </tbody>
-                  );
-                })}
-              </table>
-            )}
+                    );
+                  })}
+              </tbody>
+            </table>
           </div>
         </div>
       </div>
