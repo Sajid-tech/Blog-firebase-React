@@ -2,25 +2,41 @@ import { Typography } from "@material-tailwind/react";
 import React from "react";
 
 function HeroSection() {
+  const scrollToHeroSection = () => {
+    window.scrollTo({
+      top: window.innerHeight,
+      behavior: "smooth",
+    });
+  };
   return (
-    <div className=" relative w-full h-96 object-fill">
+    <div className="relative w-full h-screen   mb-5 overflow-hidden">
       <img
-        className="h-full w-full  object-cover object-center "
-        src="https://traveljunkies.com/wp-content/uploads/2023/01/adventure1.jpg"
+        className="w-full h-full object-cover object-center"
+        src="/bg-hero.jpg"
         alt="nature image"
       />
 
-      <figcaption className="absolute bottom-8 left-2/4 flex w-[calc(100%-4rem)] -translate-x-2/4 justify-between rounded-xl border border-white bg-white/75 py-4 px-6 shadow-lg shadow-black/5 saturate-200 backdrop-blur-sm">
-        <div>
-          <div color="blue-gray">Sara Lamalo</div>
-          <div color="gray" className="mt-2 font-normal">
-            20 July 2022
-          </div>
-        </div>
-        <div variant="h5" color="blue-gray">
-          Growth
-        </div>
-      </figcaption>
+      {/* Overlay with reduced opacity */}
+      <div className="absolute inset-0 bg-black opacity-50"></div>
+
+      <div className="absolute inset-0 flex flex-col items-center justify-center text-center text-white">
+        <Typography tag="h1" variant="h3" className="mb-4 font-bold">
+          Explore the Beauty of the Beautiful World
+        </Typography>
+
+        <Typography tag="p" variant="body1">
+          Discover amazing places, create unforgettable memories.
+        </Typography>
+        {/* Scroll down button */}
+        <button
+          onClick={scrollToHeroSection}
+          className="mt-8 text-white bg-transparent border border-solid border-white font-bold uppercase px-4 py-2 rounded transition duration-300 ease-in-out transform hover:scale-105 hover:bg-white hover:text-black active:bg-white active:text-black focus:outline-none"
+          type="button"
+          style={{ transition: "all .15s ease" }}
+        >
+          Get Started
+        </button>
+      </div>
     </div>
   );
 }

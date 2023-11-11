@@ -18,82 +18,85 @@ function BlogPostCard() {
             {/* Card 1  */}
             {getAllBlog.length > 0 ? (
               <>
-                {getAllBlog.slice(0, 2).map((item, index) => {
-                  const { thumbnail, id, date, content } = item;
-                  // console.log(item);
+                {getAllBlog
+                  .slice(-3)
+                  .reverse()
+                  .map((item, index) => {
+                    const { thumbnail, id, date, content } = item;
+                    // console.log(item);
 
-                  return (
-                    <div className="p-4 md:w-1/3" key={index}>
-                      <div
-                        style={{
-                          background:
-                            mode === "dark" ? "rgb(30, 41, 59)" : "white",
-                          borderBottom:
-                            mode === "dark"
-                              ? " 4px solid rgb(226, 232, 240)"
-                              : " 4px solid rgb(30, 41, 59)",
-                        }}
-                        className={`h-full shadow-lg  hover:-translate-y-1 cursor-pointer hover:shadow-gray-400
+                    return (
+                      <div className="p-4 md:w-1/3" key={index}>
+                        <div
+                          style={{
+                            background:
+                              mode === "dark" ? "rgb(30, 41, 59)" : "white",
+                            borderBottom:
+                              mode === "dark"
+                                ? " 4px solid rgb(226, 232, 240)"
+                                : " 4px solid rgb(30, 41, 59)",
+                          }}
+                          className={`h-full shadow-lg  hover:-translate-y-1 cursor-pointer hover:shadow-gray-400
                         ${mode === "dark" ? "shadow-gray-700" : "shadow-xl"} 
                         rounded-xl overflow-hidden`}
-                      >
-                        {/* Blog Thumbnail  */}
-                        <img
-                          className=" w-50 h-50"
-                          src={thumbnail}
-                          alt="blog"
-                        />
+                        >
+                          {/* Blog Thumbnail  */}
+                          <img
+                            className=" w-50 h-50"
+                            src={thumbnail}
+                            alt="blog"
+                          />
 
-                        {/* Top Items  */}
-                        <div className="p-6">
-                          {/* Blog Date  */}
-                          <h2
-                            className="tracking-widest text-xs title-font font-medium text-gray-400 mb-1"
-                            style={{
-                              color:
-                                mode === "dark"
-                                  ? "rgb(226, 232, 240)"
-                                  : " rgb(30, 41, 59)",
-                            }}
-                          >
-                            {date}
-                          </h2>
+                          {/* Top Items  */}
+                          <div className="p-6">
+                            {/* Blog Date  */}
+                            <h2
+                              className="tracking-widest text-xs title-font font-medium text-gray-400 mb-1"
+                              style={{
+                                color:
+                                  mode === "dark"
+                                    ? "rgb(226, 232, 240)"
+                                    : " rgb(30, 41, 59)",
+                              }}
+                            >
+                              {date}
+                            </h2>
 
-                          {/* Blog Title  */}
-                          <h1
-                            className="title-font text-lg font-bold text-gray-900 mb-3"
-                            style={{
-                              color:
-                                mode === "dark"
-                                  ? "rgb(226, 232, 240)"
-                                  : " rgb(30, 41, 59)",
-                            }}
-                          >
-                            {item.title}
-                          </h1>
+                            {/* Blog Title  */}
+                            <h1
+                              className="title-font text-lg font-bold text-gray-900 mb-3"
+                              style={{
+                                color:
+                                  mode === "dark"
+                                    ? "rgb(226, 232, 240)"
+                                    : " rgb(30, 41, 59)",
+                              }}
+                            >
+                              {item.title}
+                            </h1>
 
-                          {/* Blog Description  */}
-                          <p
-                            className="leading-relaxed mb-3"
-                            style={{
-                              color:
-                                mode === "dark"
-                                  ? "rgb(226, 232, 240)"
-                                  : " rgb(30, 41, 59)",
-                            }}
-                          >
-                            {`${content.slice(0, 150)}...`}
-                          </p>
+                            {/* Blog Description  */}
+                            <p
+                              className="leading-relaxed mb-3"
+                              style={{
+                                color:
+                                  mode === "dark"
+                                    ? "rgb(226, 232, 240)"
+                                    : " rgb(30, 41, 59)",
+                              }}
+                            >
+                              {`${content.slice(0, 150)}...`}
+                            </p>
+                          </div>
+                          <div>
+                            <Button onClick={() => navigate(`/bloginfo/${id}`)}>
+                              Read More
+                            </Button>
+                          </div>
                         </div>
                       </div>
-                      <div className="pt-0">
-                        <Button onClick={() => navigate(`/bloginfo/${id}`)}>
-                          Read More
-                        </Button>
-                      </div>
-                    </div>
-                  );
-                })}
+                    );
+                  })}
               </>
             ) : (
               <>
