@@ -16,6 +16,10 @@ function Dashboard() {
 
   const { userId } = useParams();
   const [userData, setUserData] = useState(null);
+  const [totalBlogs, setTotalBlogs] = useState(0); // new state for total blogs
+  const [userName, setUserName] = useState("");
+  const [userEmail, setUserEmail] = useState("");
+  const [userImage, setUserImage] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -24,6 +28,26 @@ function Dashboard() {
         // console.log(user);
 
         if (user) {
+          // update user indormation
+
+          setUserName(user.displayName || "Guest");
+          setUserEmail(user.email || "guest@example.com");
+
+          // check if the user has a google provider
+
+          const isGoogleUser = user.providerData.some(
+            (provider) => provider.providerId === "google.com"
+          );
+
+          //set user image based on the provider
+
+          setUserImage(
+            isGoogleUser
+              ? user.photoURL ||
+                  "https://cdn-icons-png.flaticon.com/512/4980/4980606.png"
+              : "https://cdn-icons-png.flaticon.com/512/4980/4980606.png"
+          );
+
           const q = query(
             collection(fireDb, "blogPost"),
             where("userId", "==", user.uid)
@@ -34,6 +58,9 @@ function Dashboard() {
             ...doc.data(),
           }));
           setUserData(userData);
+
+          // update totalblogs state
+          setTotalBlogs(userData.length);
         }
       } catch (error) {
         console.error("Error fetching user data:", error);
@@ -75,7 +102,7 @@ function Dashboard() {
           <div className="left">
             <img
               className="w-40 h-40 object-cover rounded-full border-4 border-blue-500 p-2 shadow-lg"
-              src="https://cdn-icons-png.flaticon.com/512/4980/4980606.png"
+              src={userImage}
               alt="profile"
             />
           </div>
@@ -84,25 +111,25 @@ function Dashboard() {
               className=" font-extrabold text-4xl  mb-2"
               style={{ color: isDarkMode ? "white" : "black" }}
             >
-              Sajid Hussain
+              {userName}
             </h1>
-            <h2
+            {/* <h2
               style={{ color: isDarkMode ? "white" : "black" }}
               className="font-semibold text-xl"
             >
               Software Developer
+            </h2> */}
+            <h2
+              style={{ color: isDarkMode ? "white" : "black" }}
+              className="font-semibold text-xl"
+            >
+              {userEmail}
             </h2>
             <h2
               style={{ color: isDarkMode ? "white" : "black" }}
               className="font-semibold text-xl"
             >
-              Sajidhussain@gmail.com
-            </h2>
-            <h2
-              style={{ color: isDarkMode ? "white" : "black" }}
-              className="font-semibold text-xl"
-            >
-              <span className="text-blue-500">Total Blog: 15</span>
+              <span className="text-blue-500">Total Blog: {totalBlogs}</span>
             </h2>
             <div className="flex gap-4 mt-4">
               <Link to={`/createblog/${userId}`}>
