@@ -64,7 +64,7 @@ function BlogPostCard() {
                           background:
                             mode === "dark"
                               ? "linear-gradient(0deg, rgba(228,230,217,1) 0%, rgba(38,138,138,1) 90%, rgba(9,39,31,1) 100%)"
-                              : "white",
+                              : "linear-gradient(0deg, rgba(34,195,109,1) 17%, rgba(45,234,253,0.5859593837535014) 91%)",
                         }}
                       >
                         <CardHeader

@@ -22,7 +22,7 @@ function Footer() {
         >
           © 2023 Traveljunkies —
           <a
-            href="https://twitter.com/knyttneve"
+            href="https://www.linkedin.com/in/sajidhussain7/"
             className="text-white-600 ml-1"
             rel="noopener noreferrer"
             target="_blank"
@@ -39,7 +39,12 @@ function Footer() {
           }}
         >
           {/* Icon 1  */}
-          <a className="text-white-500">
+          <a
+            className="text-white-500"
+            rel="noopener noreferrer"
+            target="_blank"
+            href="https://www.linkedin.com/in/sajidhussain7/"
+          >
             <svg
               fill="currentColor"
               strokeLinecap="round"
@@ -53,7 +58,12 @@ function Footer() {
           </a>
 
           {/* Icon 2  */}
-          <a className="ml-3 text-white-500">
+          <a
+            className="ml-3 text-white-500"
+            rel="noopener noreferrer"
+            target="_blank"
+            href="https://www.linkedin.com/in/sajidhussain7/"
+          >
             <svg
               fill="currentColor"
               strokeLinecap="round"
@@ -67,7 +77,12 @@ function Footer() {
           </a>
 
           {/* Icon 3  */}
-          <a className="ml-3 text-white-500">
+          <a
+            className="ml-3 text-white-500"
+            rel="noopener noreferrer"
+            target="_blank"
+            href="https://www.linkedin.com/in/sajidhussain7/"
+          >
             <svg
               fill="none"
               stroke="currentColor"
@@ -83,7 +98,12 @@ function Footer() {
           </a>
 
           {/* Icon 4  */}
-          <a className="ml-3 text-white-500">
+          <a
+            className="ml-3 text-white-500"
+            rel="noopener noreferrer"
+            target="_blank"
+            href="https://www.linkedin.com/in/sajidhussain7/"
+          >
             <svg
               fill="currentColor"
               stroke="currentColor"

@@ -24,7 +24,12 @@ function AllBlogs() {
 
   return (
     <Layout>
-      <section className="text-gray-600 body-font">
+      <section
+        className="text-gray-600 body-font"
+        style={{
+          background: mode === "light" ? " bg-[rgba(243,243,221,0.33)]" : "",
+        }}
+      >
         <div className="container px-5 py-10 mx-auto max-w-7xl ">
           {/* Top Heading  */}
           <div className="mb-5">
@@ -52,7 +57,7 @@ function AllBlogs() {
                         background:
                           mode === "dark"
                             ? "linear-gradient(0deg, rgba(228,230,217,1) 0%, rgba(38,138,138,1) 90%, rgba(9,39,31,1) 100%)"
-                            : "white",
+                            : "linear-gradient(0deg, rgba(34,195,109,1) 17%, rgba(45,234,253,0.5859593837535014) 91%)",
                       }}
                     >
                       <CardHeader
