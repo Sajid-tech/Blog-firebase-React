@@ -9,7 +9,7 @@ import {
 import Home from "./pages/home/Home";
 import Blog from "./pages/blog/Blog";
 import AllBlogs from "./pages/allBlogs/AllBlogs";
-import NoPage from "./pages/nopage/NoPage";
+
 import MyState from "./context/data/myState";
 import { Toaster } from "react-hot-toast";
 import BlogInfo from "./pages/blogInfo/BlogInfo";
@@ -40,7 +40,6 @@ const App = () => {
             element={user ? <Dashboard /> : <Navigate to="/adminlogin" />}
           />
           <Route path={`/createblog/:userId`} element={<CreateBlog />} />
-          <Route path="/*" element={<NoPage />} />
         </Routes>
         <Toaster />
       </Router>
