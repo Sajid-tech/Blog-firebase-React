@@ -1,4 +1,5 @@
 import React, { useContext, useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import {
   Card,
   CardHeader,
@@ -143,6 +144,9 @@ export default function AdminLogin() {
             >
               Login
             </Button>
+            <Link to={"/"} className="text-center">
+              Home
+            </Link>
           </form>
         </CardBody>
       </Card>
