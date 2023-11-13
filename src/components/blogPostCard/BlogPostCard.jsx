@@ -83,7 +83,7 @@ function BlogPostCard() {
                         >
                           {/* Blog Thumbnail  */}
                           <img
-                            // className=" w-50 h-50"
+                            className="  w-full h-full object-fill"
                             src={thumbnail}
                             alt="blog"
                           />

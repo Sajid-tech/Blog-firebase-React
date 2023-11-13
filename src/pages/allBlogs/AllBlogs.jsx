@@ -2,6 +2,14 @@ import React, { useContext } from "react";
 import myContext from "../../context/data/myContext";
 import Layout from "../../components/layout/Layout";
 import { useNavigate } from "react-router-dom";
+import {
+  Card,
+  CardHeader,
+  CardBody,
+  CardFooter,
+  Typography,
+  Button,
+} from "@material-tailwind/react";
 
 function AllBlogs() {
   const context = useContext(myContext);
@@ -16,31 +24,39 @@ function AllBlogs() {
 
   return (
     <Layout>
-      <div className="text-gray-600 body-font">
+      <section className="text-gray-600 body-font">
         <div className="container px-5 py-10 mx-auto max-w-7xl ">
           {/* Top Heading  */}
           <div className="mb-5">
             <h1
               className=" text-center text-2xl font-bold"
-              style={{ color: mode === "dark" ? "white" : "black" }}
+              style={{
+                color: mode == "dark" ? "rgba(45,196,121,1)" : " black",
+              }}
             >
-              All Blogs
+              All Travel Junkies Blog
             </h1>
           </div>
           {/* Main Content  */}
-          <div className="flex flex-wrap justify-center -m-4 mb-5">
+          <div className="flex flex-wrap justify-center gap-5 m-4 mb-5">
             {/* Card 1  */}
             {getAllBlog.length > 0 ? (
               <>
                 {getAllBlog.map((item, index) => {
                   const { thumbnail, id, date, title, content } = item;
                   return (
-                    <div
-                      onClick={() => navigate(`/bloginfo/${id}`)}
-                      className="p-4 md:w-1/3"
+                    <Card
+                      className="mt-6 w-96 "
                       key={index}
+                      style={{
+                        background:
+                          mode === "dark"
+                            ? "linear-gradient(0deg, rgba(228,230,217,1) 0%, rgba(38,138,138,1) 90%, rgba(9,39,31,1) 100%)"
+                            : "white",
+                      }}
                     >
-                      <div
+                      <CardHeader
+                        color="blue-gray"
                         style={{
                           background:
                             mode === "dark" ? "rgb(30, 41, 59)" : "white",
@@ -49,58 +65,67 @@ function AllBlogs() {
                               ? " 4px solid rgb(226, 232, 240)"
                               : " 4px solid rgb(30, 41, 59)",
                         }}
-                        className={`h-full shadow-lg  hover:-translate-y-1 cursor-pointer hover:shadow-gray-400
-                                ${
-                                  mode === "dark"
-                                    ? "shadow-gray-700"
-                                    : "shadow-xl"
-                                } 
-                                rounded-xl overflow-hidden`}
+                        className={`relative h-56 shadow-lg  hover:-translate-y-1 cursor-pointer hover:shadow-gray-400
+                      ${mode === "dark" ? "shadow-gray-700" : "shadow-xl"} 
+                      rounded-xl overflow-hidden`}
                       >
                         {/* Blog Thumbnail  */}
-                        <img className=" w-full" src={thumbnail} alt="blog" />
+                        <img
+                          className=" w-full h-full object-fill "
+                          src={thumbnail}
+                          alt="blog"
+                        />
+                      </CardHeader>
 
-                        {/* Top Items  */}
-                        <div className="p-6">
-                          {/* Blog Date  */}
-                          <h2
-                            className="tracking-widest text-xs title-font font-medium text-gray-400 mb-1"
-                            style={{
-                              color:
-                                mode === "dark"
-                                  ? "rgb(226, 232, 240)"
-                                  : " rgb(30, 41, 59)",
-                            }}
-                          >
-                            {date}
-                          </h2>
+                      {/* Top Items  */}
+                      <CardBody>
+                        {/* Blog Date  */}
+                        <Typography
+                          variant="h6"
+                          color="blue-gray"
+                          className="mb-2"
+                          style={{
+                            color:
+                              mode === "dark" ? "black" : " rgb(30, 41, 59)",
+                          }}
+                        >
+                          {date}
+                        </Typography>
 
-                          {/* Blog Title  */}
-                          <h1
-                            className="title-font text-lg font-bold text-gray-900 mb-3"
-                            style={{
-                              color:
-                                mode === "dark"
-                                  ? "rgb(226, 232, 240)"
-                                  : " rgb(30, 41, 59)",
-                            }}
-                          >
-                            {title}
-                          </h1>
+                        {/* Blog Title  */}
+                        <Typography
+                          variant="h3"
+                          color="blue-gray"
+                          className="mb-2"
+                          style={{
+                            color:
+                              mode === "dark" ? "black" : " rgb(30, 41, 59)",
+                          }}
+                        >
+                          {title}
+                        </Typography>
 
-                          {/* Blog Description  */}
-                          <p
-                            className="leading-relaxed mb-3"
-                            style={{
-                              color:
-                                mode === "dark"
-                                  ? "rgb(226, 232, 240)"
-                                  : " rgb(30, 41, 59)",
+                        {/* Blog Description  */}
+                        <Typography
+                          color="blue-gray"
+                          className="mb-2"
+                          style={{
+                            color:
+                              mode === "dark" ? "black" : " rgb(30, 41, 59)",
+                          }}
+                        >
+                          {/* {`${content.slice(0, 150)}...`} */}
+
+                          <div
+                            dangerouslySetInnerHTML={{
+                              __html: content
+
+                                .replace(/\s+/g, " ")
+                                .slice(0, 100),
                             }}
-                          >
-                            {/* {`${content.slice(0, 150)}...`} */}
-                            <div
-                              className={`[&> h1]:text-[32px] [&>h1]:font-bold  [&>h1]:mb-2.5
+                          ></div>
+                          {/* <div
+                            className={`[&> h1]:text-[32px] [&>h1]:font-bold  [&>h1]:mb-2.5
                         ${
                           mode === "dark"
                             ? "[&>h1]:text-[#ff4d4d]"
@@ -172,14 +197,18 @@ function AllBlogs() {
 
                         [&>img]:rounded-lg
                         `}
-                              dangerouslySetInnerHTML={createMarkup(
-                                content.slice(0, 150)
-                              )}
-                            ></div>
-                          </p>
-                        </div>
-                      </div>
-                    </div>
+                            dangerouslySetInnerHTML={createMarkup(
+                              content.slice(0, 150)
+                            )}
+                          ></div> */}
+                        </Typography>
+                      </CardBody>
+                      <CardFooter className="pt-0 ">
+                        <Button onClick={() => navigate(`/bloginfo/${id}`)}>
+                          Read More
+                        </Button>
+                      </CardFooter>
+                    </Card>
                   );
                 })}
               </>
@@ -190,7 +219,7 @@ function AllBlogs() {
             )}
           </div>
         </div>
-      </div>
+      </section>
     </Layout>
   );
 }
