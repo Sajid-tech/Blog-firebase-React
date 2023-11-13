@@ -53,9 +53,7 @@ export default function Nav() {
         className="p-1 font-normal"
         style={{ color: mode === "dark" ? "white" : "black" }}
       >
-        <Link to={"/adminlogin"} className="flex items-center">
-          Admin Login
-        </Link>
+        <Link className="flex items-center">About us</Link>
       </Typography>
     </ul>
   );
@@ -103,7 +101,7 @@ export default function Nav() {
 
             {/* Admin Profile Pic */}
             <div>
-              <Link to={"/dashboard"}>
+              <Link to={"/adminlogin"}>
                 <div className="">
                   <Avatar
                     key={1}

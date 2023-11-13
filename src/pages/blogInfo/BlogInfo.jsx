@@ -61,14 +61,14 @@ const BlogInfo = () => {
                   style={{ color: mode === "dark" ? "white" : "black" }}
                   className=" text-xl md:text-2xl lg:text-2xl font-semibold"
                 >
-                  {getBlog?.title}
+                  {`Title: ${getBlog?.title}`}
                 </h1>
                 <p style={{ color: mode === "dark" ? "white" : "black" }}>
                   {getBlog?.date}
                 </p>
               </div>
               <div
-                className={`border-b mb-5 ${
+                className={`border-b-4 mb-5 ${
                   mode === "dark" ? "border-gray-600" : "border-gray-400"
                 }`}
               />

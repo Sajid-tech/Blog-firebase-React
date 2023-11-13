@@ -110,7 +110,7 @@ function CreateBlog() {
         <div className="mb-2 flex justify-between">
           <div className="flex gap-2 items-center">
             {/* Dashboard Link */}
-            <Link to={"/dashboard"}>
+            <Link to={navigate(`/dashboard/${userId}`)}>
               <BsFillArrowLeftCircleFill size={25} />
             </Link>
 
