@@ -1,9 +1,8 @@
 import React from "react";
 import {
-  BrowserRouter as Router,
+  HashRouter as Router,
   Route,
   Routes,
-  useParams,
   Navigate,
 } from "react-router-dom";
 import Home from "./pages/home/Home";
