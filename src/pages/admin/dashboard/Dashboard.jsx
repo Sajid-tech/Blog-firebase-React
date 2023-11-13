@@ -231,11 +231,7 @@ function Dashboard() {
                         </td>
 
                         {/* delete blog  */}
-                        <td
-                          onClick={() => deleteBlogs(item?.id)}
-                          style={containerStyle}
-                          className="px-6 py-4"
-                        >
+                        <td style={containerStyle} className="px-6 py-4">
                           <button
                             onClick={() => deleteBlogs(item?.id)}
                             className="px-4 py-2 rounded-lg text-white font-bold bg-red-500 hover:bg-red-600 flex items-center justify-center transition duration-300 transform hover:scale-105"
